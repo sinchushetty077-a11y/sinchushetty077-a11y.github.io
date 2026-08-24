@@ -22,6 +22,38 @@
 @keyframes float{50%{transform:translateY(-10px)}}@keyframes spin{to{transform:rotate(360deg)}}@keyframes drop{50%{transform:translateY(7px);opacity:.2}}@keyframes pulse{50%{box-shadow:0 0 48px rgba(0,231,213,.16)}}@keyframes twinkle{50%{transform:scale(1.4);opacity:.4}}@media(max-width:900px){.navlinks{gap:18px}.hero{grid-template-columns:1fr;padding-top:45px}.hero-photo{min-height:380px;grid-row:1}.hero-copy{grid-row:2}.cards{grid-template-columns:repeat(2,1fr)}.certs{grid-template-columns:repeat(3,1fr)}.contact-grid{grid-template-columns:repeat(2,1fr)}.projects{grid-template-columns:1fr}.about{grid-template-columns:1fr}.about-art{display:none}}
 @media(max-width:640px){.nav{height:62px;padding:0 18px}.navlinks{display:none;position:absolute;top:62px;left:0;right:0;background:rgba(2,7,13,.98);padding:12px 20px 18px;border-bottom:1px solid var(--line);flex-direction:column;gap:0}.navlinks.open{display:flex}.navlinks a{padding:11px 0;width:100%;text-align:center}.navlinks a:after{bottom:5px}.menu{display:block}.talk{display:none}.hero{padding:40px 20px 45px;min-height:0}.hero h1{font-size:48px}.script{font-size:60px}.hero p{font-size:14px}.actions{flex-wrap:wrap}.photo-orbit{width:275px;height:275px}.hero-photo{min-height:330px}.section{padding:0 18px}.section-inner{padding:35px 0}.number{left:18px;top:18px;font-size:40px}.section-title{margin-bottom:18px}.about p{font-size:14px}.cards{grid-template-columns:1fr 1fr;gap:10px}.highlight{min-height:135px;padding:16px 9px}.highlight p{font-size:11px}.skills{grid-template-columns:1fr 1fr;gap:10px}.skill{padding:11px 13px;min-height:62px}.skill-logo{width:34px;height:34px;flex-basis:34px}.tools{gap:9px}.tool{min-width:calc(50% - 6px);padding:9px}.tool span{font-size:11px}.projects{gap:12px}.project{grid-template-columns:78px 1fr;min-height:160px}.project-visual{font-size:40px}.project-body{padding:14px}.project h3{font-size:15px}.project p{font-size:11px}.certs{grid-template-columns:1fr 1fr}.cert{min-height:135px;padding:12px}.cert h4{font-size:10px}.contact-grid{grid-template-columns:1fr 1fr}.contact-card{padding:11px}.contact-card span{font-size:9px}.footer{font-size:9px}.top{right:15px;bottom:15px;width:42px;height:42px}}
 @media(max-width:390px){.cards,.skills,.certs,.contact-grid{grid-template-columns:1fr}.tool{min-width:100%}.hero h1{font-size:43px}.script{font-size:54px}}
+
+/* ===== EXTRA PORTFOLIO MOTION ===== */
+@keyframes portfolioFadeUp{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:none}}
+@keyframes portfolioFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes portfolioPulse{0%,100%{box-shadow:0 0 0 0 rgba(0,245,223,0)}50%{box-shadow:0 0 38px 8px rgba(0,245,223,.10)}}
+@keyframes portfolioGlow{0%,100%{filter:drop-shadow(0 0 0 rgba(0,245,223,0))}50%{filter:drop-shadow(0 0 18px rgba(0,245,223,.32))}}
+@keyframes portfolioShimmer{0%{background-position:180% 0}100%{background-position:-180% 0}}
+@keyframes portfolioGrid{from{background-position:0 0,0 0}to{background-position:86px 86px,-86px -86px}}
+@keyframes portfolioParticle{0%{transform:translate3d(0,0,0);opacity:.2}50%{opacity:.75}100%{transform:translate3d(80px,-55px,0);opacity:.15}}
+
+body{animation:portfolioGrid 22s linear infinite}
+.hero-copy{animation:portfolioFadeUp .9s .05s both}
+.hero-art{animation:portfolioFadeUp 1s .2s both}
+.profile{animation:portfolioFloat 5s ease-in-out infinite,portfolioGlow 4s ease-in-out infinite}
+.orbit.o1{animation:spin 16s linear infinite}
+.orbit.o2{animation:spin 11s linear infinite reverse}
+.orbit.o3{animation:spin 8s linear infinite}
+.card{will-change:transform}
+.skill,.tool,.project,.cert,.highlight,.contact .card{
+  transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .35s,box-shadow .35s,background .35s;
+}
+.skill:hover,.tool:hover,.project:hover,.cert:hover,.highlight:hover,.contact .card:hover{
+  transform:translateY(-9px) scale(1.015);
+  box-shadow:0 20px 55px rgba(0,0,0,.35),0 0 28px rgba(0,245,223,.10);
+}
+.btn.primary{
+  background-size:220% 100%;
+  animation:portfolioShimmer 5s linear infinite;
+}
+.logo{animation:portfolioPulse 3s ease-in-out infinite}
+.section-kicker,.eyebrow{animation:portfolioGlow 3s ease-in-out infinite}
+
 </style>
 </head>
 <body>
@@ -69,45 +101,5 @@
 </div><div class="skills-note">✦ &nbsp; Tap a skill to open its certificate &nbsp; ✦</div></div></section>
 
 <section class="section" id="tools"><div class="number">04</div><div class="section-inner reveal"><div class="section-title">TOOLS &amp; TECHNOLOGIES</div><div class="tools">
-<div class="tool"><span class="tool-logo">PT</span><span>Cisco Packet Tracer</span></div><div class="tool"><span class="tool-logo">SE</span><span>Solid Edge</span></div><div class="tool"><span class="tool-logo">Ps</span><span>Adobe Photoshop</span></div><div class="tool"><span class="tool-logo">X</span><span>Excel</span></div><div class="tool"><span class="tool-logo">Py</span><span>Python</span></div><div class="tool"><span class="tool-logo">&lt;/&gt;</span><span>Visual Studio Code</span></div><div class="tool"><span class="tool-logo">●</span><span>GitHub</span></div><div class="tool"><span class="tool-logo">Z</span><span>Zephyr</span></div><div class="tool"><span class="tool-logo">F</span><span>Figma</span></div>
-</div></div></section>
-
-<section class="section" id="projects"><div class="number">05</div><div class="section-inner reveal"><div class="section-title">MY PROJECTS</div><div class="projects">
-<article class="project"><div class="project-visual">👥</div><div class="project-body"><h3>Smart Attendance Tracker</h3><p>A smart web application to track student attendance efficiently with analytics and visual insights.</p><div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">Chart.js</span></div><div class="project-actions"><a href="smart-attendance-tracker.html" target="_blank" rel="noopener">Live Demo ↗</a><a class="secondary-link" href="smart-attendance-tracker.html" target="_blank" rel="noopener">View Code &lt;/&gt;</a></div></div></article>
-<article class="project"><div class="project-visual temple-visual">🏛️</div><div class="project-body"><h3>Varanga Jain Temple</h3><p>A temple website project is currently being designed and developed. The full website will be added here when the project is ready.</p><div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div><div class="project-actions"><span class="wip">Work in Progress</span></div></div></article>
-</div></div></section>
-
-<section class="section" id="certificates"><div class="number">06</div><div class="section-inner reveal"><div class="section-title">CERTIFICATES</div>
-<h3 style="margin:0 0 14px;color:#00e7d5;font-size:13px;letter-spacing:2px">SKILL CERTIFICATES</h3><div class="certs">
-<a class="cert" href="certificates/Practice-HTML-CSS.pdf" target="_blank" rel="noopener"><span class="pdf-icon">PDF</span><h4>Practical HTML &amp; CSS</h4><small>HTML + CSS • OPEN ↗</small></a>
-<a class="cert" href="certificates/JavaScript.pdf" target="_blank" rel="noopener"><span class="pdf-icon">PDF</span><h4>JavaScript</h4><small>OPEN CERTIFICATE ↗</small></a>
-<a class="cert" href="certificates/ES6-JavaScript.pdf" target="_blank" rel="noopener"><span class="pdf-icon">PDF</span><h4>ES6 JavaScript</h4><small>OPEN CERTIFICATE ↗</small></a>
-<a class="cert" href="certificates/TypeScript-Essentials.pdf" target="_blank" rel="noopener"><span class="pdf-icon">PDF</span><h4>TypeScript Essentials</h4><small>OPEN CERTIFICATE ↗</small></a>
-<a class="cert" href="certificates/Arduino-React.pdf" target="_blank" rel="noopener"><span class="pdf-icon">PDF</span><h4>Arduino React</h4><small>OPEN CERTIFICATE ↗</small></a>
-</div>
-<h3 style="margin:34px 0 14px;color:#00e7d5;font-size:13px;letter-spacing:2px">IBM SKILLSBUILD CERTIFICATES</h3><div class="certs">
-<a class="cert" href="certificates/ai-fundamentals-understanding-ai.pdf" target="_blank" rel="noopener"><span class="pdf-icon">IBM</span><h4>AI Fundamentals: Foundations for Understanding AI</h4><small>OPEN CERTIFICATE ↗</small></a>
-<a class="cert" href="certificates/artificial-intelligence-fundamentals.pdf" target="_blank" rel="noopener"><span class="pdf-icon">IBM</span><h4>Artificial Intelligence Fundamentals</h4><small>OPEN CERTIFICATE ↗</small></a>
-<a class="cert" href="certificates/customer-engagement-communication.pdf" target="_blank" rel="noopener"><span class="pdf-icon">IBM</span><h4>Customer Engagement: Communication &amp; Personality Dynamics</h4><small>OPEN CERTIFICATE ↗</small></a>
-<a class="cert" href="certificates/customer-engagement-problem-solving.pdf" target="_blank" rel="noopener"><span class="pdf-icon">IBM</span><h4>Customer Engagement: Problem Solving &amp; Process Controls</h4><small>OPEN CERTIFICATE ↗</small></a>
-</div></div></section>
-
-<section class="section" id="contact"><div class="number">07</div><div class="section-inner reveal"><div class="section-title">GET IN TOUCH</div><div class="contact-grid">
-<a class="contact-card" href="mailto:sinchanashetty741@gmail.com"><span class="contact-icon">✉</span><div><b>Email</b><span>sinchanashetty741@gmail.com</span></div></a>
-<a class="contact-card" href="tel:7411333351"><span class="contact-icon">☎</span><div><b>Phone</b><span>7411333351</span></div></a>
-<a class="contact-card" href="https://github.com/sinchushetty077-a11y" target="_blank" rel="noopener"><span class="contact-icon">◉</span><div><b>GitHub</b><span>sinchushetty077-a11y</span></div></a>
-<a class="contact-card" href="https://www.instagram.com/_sinchu.shetty_/?igsh=MXBlc2pvcng5ZjkwZA==" target="_blank" rel="noopener"><span class="contact-icon">◎</span><div><b>Instagram</b><span>_sinchu.shetty_</span></div></a>
-</div></div></section>
-</main>
-<footer class="footer">© 2026 Sinchana Shetty. &nbsp; • &nbsp; Designed &amp; Built with 💜 by Sinchana Shetty</footer>
-<button class="top" id="topBtn" aria-label="Back to top">↑</button>
-<script>
-function comingSoon(e,msg){e.preventDefault();alert(msg)}
-const menu=document.getElementById('menuBtn'),links=document.getElementById('navLinks');menu.addEventListener('click',()=>links.classList.toggle('open'));links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>links.classList.remove('open')));
-document.body.classList.add('js-ready');
-const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('show')}),{threshold:.08});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
-const topBtn=document.getElementById('topBtn');topBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
-const sections=[...document.querySelectorAll('main section[id]')],nav=[...document.querySelectorAll('.navlinks a')];window.addEventListener('scroll',()=>{let current='home';sections.forEach(s=>{if(scrollY>=s.offsetTop-140)current=s.id});nav.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+current))},{passive:true});
-</script>
-</body>
+<div class="tool"><span class="tool-logo">PT</span><span>Cisco Packet Tracer</span></div><div class="tool"><span class="tool-logo">SE</span><span>Solid Edge</span></div><div class="tool"><span class="tool-logo">Ps</span><span>Adobe Photoshop</span></div><div class="tool"><span class="tool-logo">X</span><span>Excel</span></div><div class="tool"><span class="tool-logo">Py</span><span>Python</span></div><div class="tool"><span class="tool-logo">&lt;/&gt;</span><span>Visual Studio Code</span></div><div class="tool"><span class="tool</body>
 </html>
