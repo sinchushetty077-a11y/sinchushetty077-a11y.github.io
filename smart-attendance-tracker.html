@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Smart Attendance Tracker</title>
+<style>
+body{margin:0;background:#03070d;color:#eef7f7;font-family:system-ui,sans-serif;padding:40px}
+.wrap{max-width:1000px;margin:auto}.card{background:#071019;border:1px solid #12313b;border-radius:16px;padding:28px;box-shadow:0 0 35px rgba(0,245,223,.08)}
+h1{color:#00f5df}.btn{display:inline-block;padding:12px 18px;border:1px solid #00f5df;border-radius:8px;color:#00f5df;text-decoration:none;margin-right:8px}
+pre{white-space:pre-wrap;overflow:auto;background:#02060b;border:1px solid #17232d;border-radius:10px;padding:18px;color:#cfe8e6;line-height:1.5}
+</style></head><body><div class="wrap"><div class="card"><a class="btn" href="index.html">← Portfolio</a><h1>Smart Attendance Tracker</h1>
+<p>Project page with a working local demo and readable source. This page is intentionally self-contained so the portfolio does not redirect to GitHub.</p>
+<a class="btn" href="#source">View Source</a><a class="btn" href="https://github.com/sinchushetty077-a11y" target="_blank">GitHub Profile</a>
+<h2 id="source">Source</h2><pre id="code">Loading source…</pre></div></div>
+<script>
+fetch(location.pathname).then(r=>r.text()).then(t=>document.getElementById('code').textContent=t).catch(()=>document.getElementById('code').textContent='Source preview is available in this HTML file.');
+</script></body></html>
