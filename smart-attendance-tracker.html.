@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Attendance Tracker</title>
+<style>
+:root{--bg:#050b12;--card:#0b151f;--line:#17303b;--cyan:#00e5d4;--text:#eef8f7;--muted:#9bb1b5;--green:#32e875;--red:#ff5d73}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:radial-gradient(circle at 80% 0%,#06313a 0,transparent 35%),var(--bg);color:var(--text);min-height:100vh}
+header{position:sticky;top:0;z-index:5;background:rgba(5,11,18,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{max-width:1100px;margin:auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:24px;font-weight:900;color:var(--cyan);text-decoration:none}.back{color:var(--muted);text-decoration:none}
+main{max-width:1100px;margin:auto;padding:34px 20px 60px}
+h1{margin:0 0 8px;font-size:clamp(30px,5vw,48px)}.sub{color:var(--muted);margin-bottom:28px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.card{background:linear-gradient(145deg,rgba(12,28,38,.96),rgba(7,17,25,.96));border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 10px 35px #0005}
+.stat strong{display:block;font-size:30px;color:var(--cyan)}.stat span{color:var(--muted);font-size:14px}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+input,select,button{font:inherit;border-radius:10px;border:1px solid var(--line);padding:11px 13px;background:#08131c;color:var(--text)}
+input{flex:1;min-width:190px}button{cursor:pointer}button.primary{background:var(--cyan);color:#001513;border-color:var(--cyan);font-weight:800}
+.table-wrap{overflow:auto}.table{width:100%;border-collapse:collapse;min-width:650px}.table th,.table td{text-align:left;padding:14px 12px;border-bottom:1px solid var(--line)}.table th{color:var(--muted);font-size:13px}
+.badge{display:inline-block;padding:5px 9px;border-radius:999px;font-size:12px;font-weight:700}.present{background:#0d3b27;color:var(--green)}.absent{background:#431d28;color:var(--red)}
+.actions button{margin-right:6px;padding:7px 10px}.empty{text-align:center;color:var(--muted);padding:30px}
+.note{margin-top:18px;color:var(--muted);font-size:13px}
+@media(max-width:750px){.grid{grid-template-columns:repeat(2,1fr)}.nav{padding:14px 16px}main{padding:26px 14px 45px}}
+</style>
+</head>
+<body>
+<header><div class="nav"><a class="logo" href="index.html">SS.</a><a class="back" href="index.html">← Back to Portfolio</a></div></header>
+<main>
+<h1>Smart Attendance Tracker</h1>
+<div class="sub">A simple working attendance dashboard — add students, mark attendance, and keep the data saved on this device.</div>
+
+<div class="grid">
+<div class="card stat"><strong id="total">0</strong><span>Total Students</span></div>
+<div class="card stat"><strong id="present">0</strong><span>Present Today</span></div>
+<div class="card stat"><strong id="absent">0</strong><span>Absent Today</span></div>
+<div class="card stat"><strong id="rate">0%</strong><span>Attendance Rate</span></div>
+</div>
+
+<div class="card">
+<div class="toolbar">
+<input id="studentName" placeholder="Enter student name">
+<button class="primary" onclick="addStudent()">+ Add Student</button>
+<button onclick="clearAll()">Clear All</button>
+</div>
+<div class="toolbar">
+<input id="search" placeholder="Search students..." oninput="render()">
+<input id="date" type="date" onchange="render()">
+</div>
+<div class="table-wrap">
+<table class="table">
+<thead><tr><th>Student</th><th>Status</th><th>Action</th></tr></thead>
+<tbody id="rows"></tbody>
+</table>
+<div id="empty" class="empty">No students yet. Add a student to start.</div>
+</div>
+<div class="note">Data is stored locally in your browser using localStorage.</div>
+</div>
+</main>
+<script>
+const KEY='sinchana-attendance-v1';
+let data=JSON.parse(localStorage.getItem(KEY)||'[]');
+const dateEl=document.getElementById('date');
+dateEl.value=new Date().toISOString().slice(0,10);
+function save(){localStorage.setItem(KEY,JSON.stringify(data))}
+function addStudent(){
+ const el=document.getElementById('studentName'), name=el.value.trim();
+ if(!name)return;
+ if(data.some(s=>s.name.toLowerCase()===name.toLowerCase())){alert('Student already exists.');return}
+ data.push({id:Date.now(),name,attendance:{}});
+ save();el.value='';render();
+}
+function status(s){return s.attendance[dateEl.value]||'Absent'}
+function toggle(id,value){
+ const s=data.find(x=>x.id===id); if(!s)return;
+ s.attendance[dateEl.value]=value;save();render();
+}
+function removeStudent(id){data=data.filter(s=>s.id!==id);save();render()}
+function clearAll(){if(confirm('Remove all students and attendance data?')){data=[];save();render()}}
+function render(){
+ const q=document.getElementById('search').value.toLowerCase();
+ const filtered=data.filter(s=>s.name.toLowerCase().includes(q));
+ const rows=document.getElementById('rows'); rows.innerHTML='';
+ filtered.forEach(s=>{
+  const st=status(s), tr=document.createElement('tr');
+  tr.innerHTML=`<td><strong>${escapeHtml(s.name)}</strong></td>
+  <td><span class="badge ${st==='Present'?'present':'absent'}">${st}</span></td>
+  <td class="actions"><button onclick="toggle(${s.id},'Present')">Present</button><button onclick="toggle(${s.id},'Absent')">Absent</button><button onclick="removeStudent(${s.id})">Delete</button></td>`;
+  rows.appendChild(tr);
+ });
+ document.getElementById('empty').style.display=filtered.length?'none':'block';
+ const p=data.filter(s=>status(s)==='Present').length, total=data.length;
+ document.getElementById('total').textContent=total;
+ document.getElementById('present').textContent=p;
+ document.getElementById('absent').textContent=total-p;
+ document.getElementById('rate').textContent=total?Math.round(p/total*100)+'%':'0%';
+}
+function escapeHtml(x){return x.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+document.getElementById('studentName').addEventListener('keydown',e=>{if(e.key==='Enter')addStudent()});
+render();
+</script>
+</body>
+</html>
